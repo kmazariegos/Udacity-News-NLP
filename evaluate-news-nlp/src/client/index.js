@@ -1,7 +1,12 @@
-import { checkForName } from './js/nameChecker'
+import { checkUrl } from './js/urlChecker'
 import { handleSubmit } from './js/formHandler'
+import 'base.scss'
+import 'footer.scss'
+import 'form.scss'
+import 'header.scss'
+import 'resets.scss'
 
-console.log(checkForName);
-
-alert("I EXIST")
-console.log("CHANGE!!");
+export {
+    checkUrl,
+    handleSubmit
+}

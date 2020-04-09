@@ -1,23 +1,46 @@
-var path = require('path')
+var path = require('path') 
+const bodyParser = require("body-parser")
+const cors = require("cors")
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+var aylien = require("aylien_textapi")
 
-const app = express()
+Data = {}
+
+var textapi = new aylien({
+    application_id: '20010ec4',
+    application_key: '252945ee2af6c4841e1b37ca56b6cb3d'
+})
+
+const app = express() 
 
 app.use(express.static('dist'))
+
+//our middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(cors())
 
 console.log(__dirname)
 
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
+    res.sendFile('dist/index.html')
 })
 
-// designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
+app.listen(8099, function () {
+    console.log('Listening on port 8099!')
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
-})
+
+app.post('/all', function (req, res) {
+    textapi.classify({
+        url: req.body.url
+    }, function (error, response) {
+        if (error === null) {
+            response['labels'].forEach(function (labels) {
+                Data = labels;
+                res.send(Data);
+            });
+        }
+    });
+}) 

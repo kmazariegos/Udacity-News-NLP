@@ -1,16 +1,31 @@
-function handleSubmit(event) {
+function handleSubmit(event) { 
     event.preventDefault()
 
-    // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    checkForName(formText)
+    let form = document.getElementById('url').value
+    let name = document.getElementById('name').value
+  
+    if (client.checkUrl(form)) {
+        const postUrl = async (url = '', data = {}) => {
+            const response = await fetch(url, {
+                method: 'POST',
+                credentials: 'same-origin', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
 
-    console.log("::: Form Submitted :::")
-    fetch('http://localhost:8080/test')
-    .then(res => res.json())
-    .then(function(res) {
-        document.getElementById('results').innerHTML = res.message
-    })
+            try {
+                const newData = await response.json();
+                document.getElementById('results').innerHTML = `<div>${name}, hello! These are your site reviews\:</div><div>label: ${newData.label}</div><div>code: ${newData.code}</div><div>confidence: ${newData.confidence}</div>`
+                return newData
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        postUrl('/all', { url: form })
+    }
 }
 
 export { handleSubmit }
