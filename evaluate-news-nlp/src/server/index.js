@@ -32,7 +32,7 @@ app.listen(8099, function () {
 })
 
 
-app.post('/all', function (req, res) {
+app.post('http://localhost:8099', function (req, res) {
     textapi.classify({
         url: req.body.url
     }, function (error, response) {
