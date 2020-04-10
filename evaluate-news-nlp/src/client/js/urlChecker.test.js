@@ -7,4 +7,4 @@ test('checking module', () => {
 
 // test('Test, the function "checkUrl()" should be a function', () => {
 //     expect(typeof validURL).toBe("function");
-// });
+// }); 

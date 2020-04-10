@@ -8,31 +8,27 @@ Data = {}
 
 var textapi = new aylien({
     application_id: '20010ec4',
-    application_key: '252945ee2af6c4841e1b37ca56b6cb3d'
+    application_key: '252945ee2af6c4841e1b37ca56b6cb3d',
 })
 
 const app = express() 
 
 app.use(express.static('dist'))
-
-//our middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 app.use(cors())
-
 console.log(__dirname)
-
-app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
-})
 
 app.listen(8099, function () {
     console.log('Listening on port 8099!')
 })
 
 
-app.post('http://localhost:8099', function (req, res) {
+app.get('/', function (req, res) {
+    res.sendFile('dist/index.html')
+})
+
+app.post('/api', function (req, res) {
     textapi.classify({
         url: req.body.url
     }, function (error, response) {
@@ -43,4 +39,5 @@ app.post('http://localhost:8099', function (req, res) {
             });
         }
     });
-}) 
+})
+

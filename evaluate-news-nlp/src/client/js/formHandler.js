@@ -17,15 +17,18 @@ function handleSubmit(event) {
 
             try {
                 const newData = await response.json();
+                console.log(newData)
                 document.getElementById('results').innerHTML = `<div>${name}, hello! These are your site reviews\:</div><div>label: ${newData.label}</div><div>code: ${newData.code}</div><div>confidence: ${newData.confidence}</div>`
+                console.log(newData)
                 return newData
             } catch (error) {
                 console.log("error", error);
             }
         };
 
-        postUrl('http://localhost:8099', { url: form })
+        postUrl('http://localhost:8099/api', { url: form })
     }
 }
 
-export { handleSubmit }
+export { handleSubmit } 
+
