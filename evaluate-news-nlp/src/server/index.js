@@ -5,6 +5,7 @@ const express = require('express')
 var aylien = require("aylien_textapi")
 
 Data = {}
+console.log(Data)
 
 var textapi = new aylien({
     application_id: '20010ec4',
