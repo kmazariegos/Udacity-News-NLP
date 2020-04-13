@@ -1,12 +1,6 @@
-import { checkUrl } from './js/urlChecker'
-import { handleSubmit } from './js/formHandler'
-import 'base.scss'
-import 'footer.scss'
-import 'form.scss'
-import 'header.scss'
-import 'resets.scss'
+const handleSubmit = require("./js/formHandler");
 
-export {
-    checkUrl,
-    handleSubmit
-}
+document.getElementById('processURL').addEventListener('click', () => {
+    let URL = document.getElementById('url').value;
+    handleSubmit(URL)
+});

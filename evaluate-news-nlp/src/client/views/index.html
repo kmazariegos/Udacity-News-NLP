@@ -2,34 +2,50 @@
 <html lang="en" dir="ltr"> 
 
 <head>
-    <meta charset="utf-8">
-    <title>Classify</title>
+    <meta charset="utf-8"> 
+    <title>Sentiment of Article</title> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Sen&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <header>
-        <div class="">
-            Evaluate News NLP Udacity
+        <div class="" style="color: pink;">
+            Evaluate News NLP Udacity: Sentiment of Article
         </div>
-        <div class="">
-            Enter Inputs Here:  
+        <div class="" style="color: pink;">
+            Enter Inputs Below: 
         </div>
     </header>
 
     <main>
         <section>
-            <form>
-                <input id="name" type="text" name="input" value="" placeholder="Name">
-                <input id="url" type="text" name="input" value="" placeholder="Place Url Here!">
-                <input type="submit" name="" value="submit" onsubmit="return client.handleSubmit(event)">
-            </form>
-            <section>
+            <div>
+                <input id="url" type="text" name="url" value="" placeholder="Enter URL here!">
+                <button id="processURL">Process URL</button>
+            </div>
+        <section>
 
-                <section>
-                    <strong>Results:</strong>
-                    <div id="results"></div>
-                </section>
+        <section class="url-results">
+            <ul>
+                <li>
+                    <h3 style="color: pink;">Polarity:</h3>
+                    <p id="polarity"></p>
+                    <h4>Confidence: </h4>
+                    <p id="polarity_confidence"></p>
+                </li>
+
+                <li>
+                    <h3 style="color: pink;">Subjectivity:</h3>
+                    <p id="subjectivity"></p>
+                    <h4>Confidence: </h4>
+                    <p id="subjectivity_confidence"></p>
+                </li>
+
+                <h3 style="color: pink;">Excerpt:</h3>
+                <p id="textExcerpt"></p>
+            </ul>
+        </section>
     </main>
  
     <footer>

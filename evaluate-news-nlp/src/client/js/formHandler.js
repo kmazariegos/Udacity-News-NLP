@@ -1,34 +1,27 @@
-function handleSubmit(event) { 
-    event.preventDefault()
+const { fetch } = require('whatwg-fetch');
+const ValidURL = require('./urlChecker');
 
-    let form = document.getElementById('url').value
-    let name = document.getElementById('name').value
-  
-    if (client.checkUrl(form)) {
-        const postUrl = async (url = '', data = {}) => {
-            const response = await fetch(url, {
-                method: 'POST',
-                credentials: 'same-origin', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            try {
-                const newData = await response.json();
-                console.log(newData)
-                document.getElementById('results').innerHTML = `<div>${name}, hello! These are your site reviews\:</div><div>label: ${newData.label}</div><div>code: ${newData.code}</div><div>confidence: ${newData.confidence}</div>`
-                console.log(newData)
-                return newData
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-
-        postUrl('http://localhost:8099/api', { url: form })
+function handleSubmit(URL) {
+    if (URL && ValidURL(URL)) {
+        fetch('http://localhost:8095/test/' + encodeURIComponent(URL))
+            .then(res => res.json())
+            .then(function (res) {
+                let response = res.message;
+                console.log(response)
+                document.getElementById('polarity').innerHTML = response.polarity
+                document.getElementById('subjectivity').innerHTML = response.subjectivity
+                document.getElementById('polarity_confidence').innerHTML = response.polarity_confidence
+                document.getElementById('subjectivity_confidence').innerHTML = response.subjectivity_confidence
+                document.getElementById('textExcerpt').innerHTML = response.text
+            })
+        return true;
+    } else {
+        let resultElement = document.getElementById('results')
+        if (resultElement) {
+            resultElement.innerHTML = "Please enter valid URL"
+        }
+        return false;
     }
 }
 
-export { handleSubmit } 
-
+module.exports = handleSubmit;
